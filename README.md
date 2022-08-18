@@ -1,21 +1,27 @@
-# Play - Free Tailwind CSS Template for Startup, Apps and SaaS
+# Lanosch website
 
-Play is an open-source and free Tailwind CSS template co-created by TailGrids and UIdeck. This template specially crafted for SaaS, startup, business and software website.
-Play crafted in a way that you can use with almost all sort of web project. This is Tailwind CSS version of our old [Bootstrap](https://preview.uideck.com/items/play-bootstrap/) project.
+## Development guide
 
-### This template crafted using 🥞 [TailGrids](https://tailgrids.com/) UI components
+### Technologies
 
-### [🚀 View Demo](https://play-tailwind.tailgrids.com/)
+React.js with Tailwind css and Flowbite css library
 
-### [⬇️ Download Now](https://links.tailgrids.com/play-download)
+### Run/build the project
 
-[![play-tailwind](https://cdn.tailgrids.com/play-tailwind.jpg)](https://play-tailwind.tailgrids.com/)
+Start it with
 
-## 📃 License
+npm run start
 
-Play is an open-source template, you can use it with your personal or commercial projects without any attribution or backlink.
+or build the project for production with
 
-## 💙 Support
+npm run build
 
-You can always support this project by [Starring🌟 This Repository](https://github.com/tailgrids/play-tailwind)
-and sharing with friends. Also open an issue if you find bug or feel free to contribute by pull requests after fixing any issue or adding more values.
+### Testing
+
+Coming soon!
+
+## General stuffs
+
+### About the project
+
+This is just a proof of concept that I could make a better website for my university group with up-to-date features, nice design and etc.
