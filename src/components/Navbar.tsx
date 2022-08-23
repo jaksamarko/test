@@ -23,7 +23,10 @@ const Navbar = () => {
       const refElement = document.querySelector(
         `#${links[i].href}`
       ) as HTMLElement;
-      if (!refElement) continue;
+      if (!refElement) {
+        links[i].active = false;
+        continue;
+      }
       if (
         refElement.offsetTop <= scrollPos &&
         refElement.offsetTop + refElement.offsetHeight > scrollPos
@@ -79,7 +82,11 @@ const Navbar = () => {
               >
                 <ul className="blcok lg:flex">
                   {links.map((v, ind) => {
-                    return <PageLink {...v} key={ind} />;
+                    return (
+                      <div onClick={() => setNavbarHide(true)}>
+                        <PageLink {...v} key={ind} />
+                      </div>
+                    );
                   })}
                 </ul>
               </nav>

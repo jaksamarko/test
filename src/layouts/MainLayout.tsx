@@ -1,6 +1,6 @@
+import About from "../components/About";
 import Events from "../components/Events";
 import Faq from "../components/Faq";
-import Footer from "../components/Footer";
 import Header from "../components/Header";
 import Team from "../components/Team";
 
@@ -10,8 +10,8 @@ const MainLayout = () => {
       <Header />
       <Faq />
       <Events />
+      <About />
       <Team />
-      <Footer />
     </>
   );
 };

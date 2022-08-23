@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
+import Footer from "./components/Footer";
 import BackToTop from "./components/Misc/BackToTop";
 import Navbar from "./components/Navbar";
 import EventLayout from "./layouts/EventLayout";
@@ -17,6 +18,7 @@ function App() {
           <Route path="*" element={<NoPageLayout />} />
         </Routes>
       </BrowserRouter>
+      <Footer />
       <BackToTop />
     </>
   );

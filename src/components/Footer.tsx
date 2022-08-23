@@ -1,14 +1,35 @@
+import { useEffect, useState } from "react";
 import logo from "../assets/images/logo.png";
+import logoSmall from "../assets/images/logo_small.svg";
 
 const Footer = () => {
+  const MAX_WIDTH = 768;
+  const [smallLogo, setSmallLogo] = useState(window.innerWidth < MAX_WIDTH);
+
+  function resize() {
+    setSmallLogo(window.innerWidth < MAX_WIDTH);
+  }
+
+  useEffect(() => {
+    window.addEventListener("resize", resize);
+    return () => {
+      window.removeEventListener("resize", resize);
+    };
+  }, []);
+
+  useEffect(() => {
+    console.log(smallLogo);
+  }, [smallLogo]);
+
   return (
     <footer className="p-4 bg-white rounded-lg shadow md:px-6 md:py-8 dark:bg-gray-900">
-      <div className="sm:flex sm:items-center sm:justify-between">
+      <div className="flex items-center justify-between">
         <a className="flex items-center mb-4 sm:mb-0">
-          <img src={logo} className="mr-3 h-8" alt="Lanosch Logo" />
-          <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-            Flowbite
-          </span>
+          <img
+            src={smallLogo ? logoSmall : logo}
+            className="mr-3 h-8"
+            alt="Lanosch Logo"
+          />
         </a>
         <ul className="flex flex-wrap items-center mb-6 text-sm text-gray-500 sm:mb-0 dark:text-gray-400">
           <li>

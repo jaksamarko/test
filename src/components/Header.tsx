@@ -16,13 +16,13 @@ const Header = () => {
               <h1 className="mb-4 text-3xl font-bold leading-snug text-primary sm:text-4xl sm:leading-snug md:text-[45px] md:leading-snug">
                 LANOSCH
               </h1>
-              <p className="mx-auto mb-10 max-w-[600px] text-base text-primary sm:text-lg sm:leading-relaxed md:text-xl md:leading-relaxed">
+              <p className="mx-auto max-w-[600px] text-base text-primary sm:text-lg sm:leading-relaxed md:text-xl md:leading-relaxed">
                 Lanni vagy nem lanni
               </p>
             </div>
           </div>
 
-          <div className="w-full px-4">
+          <div className="w-full px-4 mb-10">
             <div
               className="wow fadeInUp relative z-10 mx-auto max-w-[845px]"
               data-wow-delay=".25s"
