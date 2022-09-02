@@ -1,18 +1,28 @@
-import React from "react";
+import React, { lazy } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import "tw-elements";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
+import Navbar from "./components/Navbar";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Footer from "./components/Footer";
+import BackToTop from "./components/Misc/BackToTop";
+
+const MainLayout = lazy(() => import("./layouts/MainLayout"));
+const EventLayout = lazy(() => import("./layouts/EventLayout"));
 
 const root = ReactDOM.createRoot(document.getElementById("root")!);
 root.render(
   <React.StrictMode>
-    <App />
+    <title>Lanosch</title>
+    <Navbar />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<MainLayout />} />
+        <Route path="/events/:eventid" element={<EventLayout />} />
+        {/* <Route path="*" element={<NoPageLayout />} /> */}
+      </Routes>
+    </BrowserRouter>
+    <Footer />
+    <BackToTop />
   </React.StrictMode>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-//reportWebVitals();

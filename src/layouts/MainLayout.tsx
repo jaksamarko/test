@@ -1,4 +1,5 @@
 import About from "../components/About";
+import Contact from "../components/Contact";
 import Events from "../components/Events";
 import Faq from "../components/Faq";
 import Header from "../components/Header";
@@ -8,10 +9,11 @@ const MainLayout = () => {
   return (
     <>
       <Header />
+      <About />
       <Faq />
       <Events />
-      <About />
       <Team />
+      <Contact />
     </>
   );
 };
