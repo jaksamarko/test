@@ -3,6 +3,7 @@ import face_David from "../assets/images/team_david.png";
 import face_Marko from "../assets/images/team_marko.png";
 import face_Zsombor from "../assets/images/team_zsombor.png";
 import face_Default from "../assets/images/team_default.png";
+import face_Koki from "../assets/images/team_koki.png";
 import face_Gyula from "../assets/images/team_gyula.jpg";
 
 export interface ProfileSocials {
@@ -23,25 +24,38 @@ export interface TeamProfileInterface {
 
 const teamMembers: TeamProfileInterface[] = [
   {
-    name: "Gál Gyula",
+    name: "Fejes Dániel (Koki)",
     role: "Körvezető",
-    image: face_Gyula,
+    image: face_Koki,
     socials: {
-      fbook: "https://www.facebook.com/gal.gyula99",
-      disc: "Gyula#9138",
+      fbook: "https://www.facebook.com/fejes.danika",
+      disc: "Koki#9483",
+      pek: "https://pek.sch.bme.hu/profiles/koki",
     },
   },
   {
     name: "Karakas Dávid",
     role: "Tag",
     image: face_David,
-    socials: {},
+    socials: {
+      pek: "https://pek.sch.bme.hu/profiles/Yay",
+    },
   },
   {
     name: "Fábry-Nagy Enikő",
     image: face_Eni,
     role: "Gazdaságis",
-    socials: {},
+    socials: {
+      pek: "https://pek.sch.bme.hu/profiles/mitzuki.sch.bme.hu",
+    },
+  },
+  {
+    name: "Gál Gyula",
+    image: face_Gyula,
+    role: "Tag",
+    socials: {
+      pek: "https://pek.sch.bme.hu/profiles/Nagyon_szeretem_a_tejet",
+    },
   },
   {
     name: "Jaksa Márkó Dániel",
@@ -57,13 +71,17 @@ const teamMembers: TeamProfileInterface[] = [
     name: "Barta Zsombor",
     image: face_Zsombor,
     role: "Tag",
-    socials: {},
+    socials: {
+      pek: "https://pek.sch.bme.hu/profiles/bmzsombi",
+    },
   },
   {
     name: "Pozsonyi Balázs",
     image: face_Default,
     role: "Tag",
-    socials: {},
+    socials: {
+      pek: "https://pek.sch.bme.hu/profiles/Pozsi%20",
+    },
   },
 ];
 
