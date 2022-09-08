@@ -1,5 +1,8 @@
 import FaqQuestion, { FaqQuestionData } from "./Faq/FaqQuestion";
 
+const allapodas_link =
+  "https://lano.sch.bme.hu/wp-content/uploads/2022/05/xbox_nyilatkozat.pdf";
+
 const questions: FaqQuestionData[] = [
   {
     question: "Ki bérelhet konzolt?",
@@ -11,8 +14,17 @@ const questions: FaqQuestionData[] = [
       "Bérlési szándékodat legalább 48 órával a bérlés előtt jelezd, alapvetően 24 órára kölcsönözheted ki, azonban ez több idő is lehet ha más nem tart rá igényt akkor.",
   },
   {
-    question: "Hogyan bérelhetek?",
-    answer: "Mindenkinek aki jelenleg a Schönherz Zoltán Kollégium lakója",
+    question: "Mi a bérlés menete?",
+    answer: `Az oldalunkon alján lehetőséged van konzol bérlési szándékod benyújtására, ezután felvesszük veled a kapcsolatot egy válasz levélben, majd átvételkor egy <a class="underline" href="${allapodas_link}">megállapodást</a> írsz alá`,
+  },
+  {
+    question: "Mikor nem tudok bérelni?",
+    answer: `Nyilván olyan időszakokban mikor nyitás van vagy csapatépülés, illetve mikor más kolis kibérelte már a konzolt, jelenleg dolgozunk azon hogy valamilyen formában közvetítsük a konzolok elérhetőségét.`,
+  },
+  {
+    question: "Milyen játékok érhetőek el?",
+    answer:
+      "Ezen is dolgozunk hogy megosszuk veletek, jelenleg a PS5 rendelkezik egy PS Plus-al amiben sok ismert title-ök benne vannak, köztük a God of War például.",
   },
 ];
 
@@ -41,11 +53,16 @@ const Faq = () => {
         </div>
 
         <div className="-mx-4 flex flex-wrap">
-          <div className="w-full px-4 lg:w-1/2">
-            {questions.map((v, ind) => {
-              return <FaqQuestion {...v} key={ind} />;
-            })}
-          </div>
+          {[
+            questions.slice(0, questions.length / 2 + 1),
+            questions.slice(questions.length / 2 + 1),
+          ].map((v) => (
+            <div className="w-full px-4 lg:w-1/2">
+              {v.map((v, ind) => {
+                return <FaqQuestion {...v} key={ind} />;
+              })}
+            </div>
+          ))}
         </div>
       </div>
 

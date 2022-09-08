@@ -8,7 +8,7 @@ const links: PageLinkInterface[] = [
   { text: "FAQ", href: "faq" },
   { text: "Nyitások", href: "events" },
   { text: "Tagok", href: "team" },
-  { text: "Kapcsolat", href: "contact" },
+  { text: "Bérlés", href: "contact" },
 ];
 
 const Navbar = () => {

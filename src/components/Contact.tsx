@@ -1,7 +1,10 @@
-import React, { useMemo, useRef, useState } from "react";
-import sch_logo from "../assets/images/sch_logo.png";
 import emailjs from "@emailjs/browser";
-import ContactField, { ContactFieldProps } from "./Contact/ContactField";
+import React, { useRef, useState } from "react";
+import ContactField, {
+  ContactFieldProps,
+  emailRegex,
+} from "./Contact/ContactField";
+import Alert from "./Misc/Alert";
 
 function convertDate(date: Date) {
   return date.toISOString().split("T")[0];
@@ -10,12 +13,20 @@ function convertDate(date: Date) {
 const Contact = () => {
   const form = useRef<HTMLFormElement>(null);
   const [fullname, setFullname] = useState<string>("");
+  const [roomId, setRoomId] = useState<string>("");
   const [email, setEmail] = useState<string>("");
-  const [from, setFrom] = useState<string>("");
-  const [until, setUntil] = useState<string>("");
+  const [consoleId, setConsoleId] = useState<string>("def");
+  const [from, setFrom] = useState<Date>(
+    new Date(new Date().setDate(new Date().getDate() + 1))
+  );
+  const [until, setUntil] = useState<Date>(
+    new Date(new Date().setDate(new Date().getDate() + 2))
+  );
+  const [extra, setExtra] = useState<string>("");
 
-  const fields: ContactFieldProps[] = /* useMemo<ContactFieldProps[]>(
-    () => */ [
+  const [alertState, setAlertState] = useState<any[]>([]);
+
+  const fields: ContactFieldProps[] = [
     {
       name: "fullname",
       placeholder: "Név",
@@ -28,23 +39,49 @@ const Contact = () => {
       placeholder: "email@cimed.ide",
       displayName: "Email",
       value: email,
-      setValue: setFrom,
+      type: "email",
+      setValue: setEmail,
     },
+    {
+      name: "roomId",
+      placeholder: "616",
+      displayName: "Szobaszám",
+      value: roomId,
+      setValue: setRoomId,
+    },
+    {
+      name: "console",
+      value: consoleId,
+      displayName: "Konzol",
+      setValue: setConsoleId,
+      type: "option",
+      options: ["XBOX ONE + KINECT", "XBOX ONE", "XBOX 360", "PS5"],
+    },
+
     {
       name: "from",
       placeholder: convertDate(new Date()),
       displayName: "Mettől",
       value: from,
+      type: "date",
       setValue: setFrom,
     },
     {
       name: "until",
-      placeholder: convertDate(
-        new Date(new Date().setDate(new Date().getDate() + 1))
-      ),
       displayName: "Meddig",
       value: until,
+      type: "date",
       setValue: setUntil,
+      minDate: from,
+    },
+    {
+      name: "extra",
+      type: "textarea",
+      notRequired: true,
+      displayName: "Megjegyzés",
+      value: extra,
+      setValue: setExtra,
+      maxLength: 250,
     },
   ];
   /*   []
@@ -52,6 +89,29 @@ const Contact = () => {
 
   const sendMail = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (
+      fullname.length === 0 ||
+      email.length === 0 ||
+      roomId.length === 0 ||
+      consoleId === "def" ||
+      !emailRegex.test(email)
+    ) {
+      console.log(consoleId);
+      if (!alertState.length) {
+        setAlertState([
+          <Alert
+            key="only"
+            spanText="Űrlap"
+            color="red"
+            text="kitöltetlen"
+            dismiss={() => {
+              setAlertState([]);
+            }}
+          />,
+        ]);
+      }
+      return;
+    }
     emailjs
       .sendForm(
         "service_eflj8ip",
@@ -62,6 +122,18 @@ const Contact = () => {
       .then(
         (result) => {
           console.log(result.text);
+          if (!alertState.length) {
+            setAlertState([
+              <Alert
+                key="only"
+                spanText="Email"
+                text="elküldve"
+                dismiss={() => {
+                  setAlertState([]);
+                }}
+              />,
+            ]);
+          }
         },
         (error) => {
           console.log(error.text);
@@ -78,15 +150,16 @@ const Contact = () => {
             <div className="ud-contact-content-wrapper">
               <div className="ud-contact-title mb-12 lg:mb-[150px]">
                 <span className="font-headingFont mb-5 text-base font-semibold text-dark">
-                  KERESS MINKET,
+                  BÉRELJ KONZOLT,
                 </span>
                 <h2 className="text-[35px] font-semibold">
-                  Örömmel fogadjuk <br />
-                  ha kérdésed van felénk!
+                  Ha nyitásokon kívül
+                  <br />
+                  is szeretnél játszani
                 </h2>
               </div>
               <div className="mb-12 flex flex-wrap justify-between lg:mb-0">
-                <div className="mb-8 flex w-[330px] max-w-full">
+                {/* <div className="mb-8 flex w-[330px] max-w-full">
                   <div className="mr-6 text-[16px] w-[30px] text-primary">
                     <img src={sch_logo} alt="logo" />
                   </div>
@@ -96,7 +169,7 @@ const Contact = () => {
                     </h5>
                     <p className="text-base text-body-color">1519</p>
                   </div>
-                </div>
+                </div> */}
                 <div className="mb-8 flex w-[330px] max-w-full">
                   <div className="mr-6 text-[32px] text-primary">
                     <svg
@@ -112,12 +185,13 @@ const Contact = () => {
                     <h5 className="mb-6 text-lg font-semibold">
                       Egyéb kérdésed van?
                     </h5>
-                    <p className="text-base text-body-color">
-                      info@yourdomain.com
-                    </p>
-                    <p className="text-base text-body-color">
-                      contact@yourdomain.com
-                    </p>
+
+                    <a
+                      className="text-base text-body-color underline"
+                      href="mailto:konzol@sch.bme.hu"
+                    >
+                      konzol@sch.bme.hu
+                    </a>
                   </div>
                 </div>
               </div>
@@ -128,9 +202,9 @@ const Contact = () => {
               className="wow fadeInUp rounded-lg bg-white py-10 px-8 shadow-testimonial sm:py-12 sm:px-10 md:p-[60px] lg:p-10 lg:py-12 lg:px-10 2xl:p-[60px]"
               data-wow-delay=".2s"
             >
-              <h3 className="mb-8 text-2xl font-semibold md:text-[26px]">
+              {/*  <h3 className="mb-8 text-2xl font-semibold md:text-[26px]">
                 Bérelj konzolt itt!
-              </h3>
+              </h3> */}
               <form ref={form} onSubmit={sendMail}>
                 {fields.map((v) => {
                   return <ContactField {...v} />;
@@ -140,7 +214,7 @@ const Contact = () => {
                     type="submit"
                     className="inline-flex items-center justify-center rounded bg-primary py-4 px-6 text-base font-medium text-white transition duration-300 ease-in-out hover:bg-dark"
                   >
-                    Send Message
+                    Bérlés elküldése
                   </button>
                 </div>
               </form>
@@ -148,6 +222,7 @@ const Contact = () => {
           </div>
         </div>
       </div>
+      {alertState}
     </section>
   );
 };

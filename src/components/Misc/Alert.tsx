@@ -4,6 +4,7 @@ import Progress from "./Progress";
 export interface AlertProps {
   spanText?: string;
   text?: string;
+  color?: string;
   dismiss: () => void;
 }
 
@@ -25,10 +26,13 @@ const Alert = (props: AlertProps) => {
   return (
     <div
       id="alert-border"
-      className="left-1/2 -translate-x-1/2 fixed bottom-0 z-40 flex p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"
+      className={`left-1/2 -translate-x-1/2 fixed bottom-0 z-40 flex flex-wrap p-4 mb-2 text-sm text-${
+        props.color || "green"
+      }-700 bg-${props.color || "green"}-100 rounded-lg dark:bg-${
+        props.color || "green"
+      }-200 dark:text-${props.color || "green"}-800`}
       role="alert"
     >
-      <Progress width={timeLeft} />
       <svg
         aria-hidden="true"
         className="flex-shrink-0 inline w-5 h-5 mr-3"
@@ -53,7 +57,13 @@ const Alert = (props: AlertProps) => {
       </div>
       <button
         type="button"
-        className="ml-1 -mx-1.5 -my-1.5 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 dark:hover:bg-green-300 inline-flex h-8 w-8"
+        className={`ml-1 -mx-1.5 -my-1.5 text-${
+          props.color || "green"
+        }-500 rounded-lg focus:ring-2 focus:ring-${
+          props.color || "green"
+        }-400 p-1.5 hover:bg-${props.color || "green"}-200 dark:hover:bg-${
+          props.color || "green"
+        }-300 inline-flex h-8 w-8`}
         data-dismiss-target="#alert-border"
         aria-label="Close"
         onClick={props.dismiss}
@@ -73,6 +83,8 @@ const Alert = (props: AlertProps) => {
           ></path>
         </svg>
       </button>
+      <p className="hidden" />
+      <Progress width={timeLeft} />
     </div>
   );
 };

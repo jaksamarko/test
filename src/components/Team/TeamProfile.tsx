@@ -90,8 +90,8 @@ const TeamProfile = (data: TeamProfileInterface) => {
                             setAlertState([
                               <Alert
                                 key="only"
-                                spanText="Copied"
-                                text="successfully"
+                                spanText="Sikeresen"
+                                text="másolva!"
                                 dismiss={() => {
                                   setAlertState([]);
                                 }}

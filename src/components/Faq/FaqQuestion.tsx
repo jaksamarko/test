@@ -42,9 +42,10 @@ const FaqQuestion = (data: FaqQuestionData) => {
         </div>
       </button>
       <div className={`faq-content pl-[62px] ${open ? "" : "hidden"}`}>
-        <p className="py-3 text-base leading-relaxed text-body-color">
-          {data.answer}
-        </p>
+        <p
+          className="py-3 text-base leading-relaxed text-body-color"
+          dangerouslySetInnerHTML={{ __html: data.answer }}
+        ></p>
       </div>
     </div>
   );

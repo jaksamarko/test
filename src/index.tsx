@@ -9,6 +9,8 @@ import BackToTop from "./components/Misc/BackToTop";
 
 const MainLayout = lazy(() => import("./layouts/MainLayout"));
 const EventLayout = lazy(() => import("./layouts/EventLayout"));
+const GameMain = lazy(() => import("./game/GameMain"));
+const NoPageLayout = lazy(() => import("./layouts/NoPageLayout"));
 
 const root = ReactDOM.createRoot(document.getElementById("root")!);
 root.render(
@@ -18,7 +20,8 @@ root.render(
       <Routes>
         <Route path="/" element={<MainLayout />} />
         <Route path="/events/:eventid" element={<EventLayout />} />
-        {/* <Route path="*" element={<NoPageLayout />} /> */}
+        <Route path="/game" element={<GameMain />} />
+        <Route path="*" element={<NoPageLayout />} />
       </Routes>
     </BrowserRouter>
     <Footer />
