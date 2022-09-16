@@ -4,7 +4,7 @@ export interface BlogBadge {
 }
 
 export interface BlogParagraph {
-  title: string;
+  title?: string;
   text?: string;
   bannerURI?: string;
 }

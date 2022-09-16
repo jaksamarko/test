@@ -22,6 +22,10 @@ export interface TeamProfileInterface {
   socials: ProfileSocials;
 }
 
+export function findTeamMemberByName(name: string) {
+  return teamMembers.filter((v) => v.name === name)[0];
+}
+
 const teamMembers: TeamProfileInterface[] = [
   {
     name: "Fejes Dániel (Koki)",
