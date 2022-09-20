@@ -20,8 +20,10 @@ const About = () => {
 										beszélgetni.
 									</p>
 									<p className="mb-9 text-base leading-relaxed text-body-color">
-										Amennyiben közösségünk felkeltette érdeklődésedet, csatlakozz Discord
-										szerverünkhöz, a platformon ahol a legaktívabbak vagyunk.
+										Amennyiben közösségünk felkeltette érdeklődésedet,{' '}
+										{/* csatlakozz Discord
+										szerverünkhöz, a platformon ahol a legaktívabbak vagyunk. */}{' '}
+										látogass el nyitásainkra!
 									</p>
 									<a
 										href="javascript:void(0)"

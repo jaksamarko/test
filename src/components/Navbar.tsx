@@ -7,9 +7,10 @@ import PageLink, { PageLinkInterface } from './Navbar/PageLink';
 const links: PageLinkInterface[] = [
 	{ text: 'Főoldal', href: '/#home' },
 	{ text: 'Rólunk', href: '/#about' },
-	{ text: 'FAQ', href: '/#faq' },
-	{ text: 'Nyitások', href: '/#events' },
 	{ text: 'Tagok', href: '/#team' },
+	{ text: 'Just Dance', href: '/#justdance' },
+	{ text: 'Nyitások', href: '/#events' },
+	{ text: 'FAQ', href: '/#faq' },
 	{ text: 'Bérlés', href: '/#contact' },
 ];
 
@@ -79,7 +80,7 @@ const Navbar = () => {
 												</div>
 											);
 										})
-										.concat(<NavbarButton inverseHide />)}
+										.concat(<NavbarButton inverseHide key={'navbarResponsiveButton'} />)}
 								</ul>
 							</nav>
 						</div>
