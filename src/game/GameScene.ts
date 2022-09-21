@@ -1,11 +1,5 @@
-import { Input, Scene, Types } from 'phaser';
-
-interface Controls {
-	W: Input.Keyboard.Key;
-	S: Input.Keyboard.Key;
-	A: Input.Keyboard.Key;
-	D: Input.Keyboard.Key;
-}
+import { Scene, Types } from 'phaser';
+import { KeyboardControls } from './MenuScene';
 
 class Player {
 	body: Types.Physics.Arcade.SpriteWithDynamicBody;
@@ -20,7 +14,7 @@ class Player {
 
 	step() {
 		const scene = GameScene.scene;
-		const control = scene.input.keyboard.addKeys('W,A,S,D') as Controls;
+		const control = scene.input.keyboard.addKeys('W,A,S,D') as KeyboardControls;
 		if (control.D.isDown) {
 			this.body.setVelocityX(150).flipX = false;
 			this.changeAnim('walk');
@@ -69,30 +63,6 @@ export class GameScene extends Scene {
 	create() {
 		GameScene.scene = this;
 
-		this.anims.create({
-			key: 'idle',
-			frames: this.anims.generateFrameNumbers('player', {
-				frames: [0, 1, 2, 3],
-			}),
-			frameRate: 10,
-			repeat: -1,
-		});
-		this.anims.create({
-			key: 'walk',
-			frames: this.anims.generateFrameNumbers('player', {
-				frames: [4, 5, 6, 7],
-			}),
-			frameRate: 10,
-			repeat: -1,
-		});
-		this.anims.create({
-			key: 'kick',
-			frames: this.anims.generateFrameNumbers('player', {
-				frames: [8, 9, 10, 11],
-			}),
-			frameRate: 6,
-			repeat: -1,
-		});
 		this.map = this.make.tilemap({ key: 'map' });
 		let tileset = this.map.addTilesetImage('tileset', 'tileset');
 		let layer = this.map.createLayer('0', tileset);

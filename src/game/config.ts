@@ -24,6 +24,9 @@ const gameConfig: Types.Core.GameConfig = {
 			gravity: { y: 1500 },
 		},
 	},
+	input: {
+		gamepad: true,
+	},
 	render: {
 		antialias: false,
 		pixelArt: true,
