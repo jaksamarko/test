@@ -8,10 +8,7 @@ const JustDance = () => {
 				<div className="wow fadeInUp" data-wow-delay=".2s">
 					<div className="-mx-4 flex flex-wrap">
 						<div className="w-full px-4">
-							<div
-								style={{ 'var(--image-url)': require('../assets/images/justdance.png') } as any}
-								className={`items-center justify-between overflow-hidden lg:flex bg-[image:var(--image-url))]`}
-							>
+							<div className={`items-center justify-between overflow-hidden lg:flex`}>
 								<div className="w-full py-12 px-7 sm:px-12 md:p-16 lg:max-w-[565px] lg:py-9 lg:px-16 xl:max-w-[640px] xl:p-[70px]">
 									<h2 className="mb-6 text-3xl font-bold text-slate-400 sm:text-4xl sm:leading-snug 2xl:text-[40px]">
 										Csak táncolj!
@@ -27,7 +24,7 @@ const JustDance = () => {
 										látogass el nyitásainkra!
 									</p>
 									<a
-										href="javascript:void(0)"
+										href="/events/2"
 										className="inline-flex items-center justify-center rounded bg-pink-500 py-4 px-6 text-base font-medium text-black transition duration-300 ease-in-out hover:bg-opacity-90 hover:shadow-lg"
 									>
 										Tudj meg többet!

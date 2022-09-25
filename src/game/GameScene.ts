@@ -1,5 +1,9 @@
 import { Scene, Types } from 'phaser';
-import { KeyboardControls } from './MenuScene';
+import { KeyboardControls, PlayerData } from './MenuScene';
+
+export interface GameData {
+	players: PlayerData;
+}
 
 class Player {
 	body: Types.Physics.Arcade.SpriteWithDynamicBody;
@@ -51,8 +55,10 @@ export class GameScene extends Scene {
 		super('GameScene');
 	}
 
+	init(data: GameData) {}
+
 	preload() {
-		this.load.tilemapTiledJSON('map', '/assets/test.json');
+		this.load.tilemapTiledJSON('map', '/assets/m1.json');
 		this.load.image('tileset', '/assets/tileset.png');
 	}
 

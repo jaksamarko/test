@@ -7,7 +7,17 @@ export interface KeyboardControls {
 	S: Input.Keyboard.Key;
 	A: Input.Keyboard.Key;
 	D: Input.Keyboard.Key;
-	id: number;
+	I: Input.Keyboard.Key;
+	J: Input.Keyboard.Key;
+	K: Input.Keyboard.Key;
+	L: Input.Keyboard.Key;
+	Q: Input.Keyboard.Key;
+	E: Input.Keyboard.Key;
+}
+
+export interface PlayerData {
+	color: number;
+	control: Control;
 }
 
 class GamepadHelper {
@@ -41,6 +51,10 @@ class PlayerColumn {
 	column: Phaser.GameObjects.Rectangle;
 	color: number;
 	gray: number;
+	ready: boolean;
+	ui: Phaser.GameObjects.Group;
+	ui_buttons: Phaser.GameObjects.Sprite[];
+	ui_ready: Phaser.GameObjects.Group;
 
 	control: Control;
 	gpHelper: GamepadHelper | undefined;
@@ -50,10 +64,35 @@ class PlayerColumn {
 		const w = scene.scale.width,
 			h = scene.scale.height;
 
+		const map = scene.make.tilemap({ key: 'player_select_ui' });
+		map.addTilesetImage('ui', 'ui', 16, 16);
+
 		this.color = color.color;
 		this.gray = new Phaser.Display.Color().gray((160 + 100 * x) / w).color;
 
 		this.column = scene.add.rectangle(x, h / 2, w / 4, h, this.gray);
+
+		this.ui = scene.add.group();
+		for (let i = 0; i < 3; i++) {
+			const layer = map.createLayer('' + i, 'ui', x - map.widthInPixels / 2, h / 2);
+			this.ui.add(layer);
+		}
+		this.ui_ready = scene.add.group();
+		for (let i = 0; i < 2; i++) {
+			this.ui_ready.add(map.createLayer('ready ' + i, 'ui', x - map.widthInPixels / 2, h / 2));
+		}
+
+		this.ui_buttons = [];
+		for (let i = 0; i < 2; i++) {
+			this.ui_buttons.push(
+				scene.add.sprite(x + 16, h / 2 + 32 + i * 16, 'ui-buttons', 0).setVisible(false)
+			);
+			this.ui.add(this.ui_buttons[i]);
+		}
+		this.ui.setDepth(1).setVisible(false);
+		this.ui_ready.setDepth(1).setVisible(false);
+
+		this.ready = false;
 
 		this.control = undefined;
 
@@ -67,41 +106,90 @@ class PlayerColumn {
 		this.sprite.setDepth(1);
 	}
 
+	updateUiButtons(indexes: number[]) {
+		this.ui_buttons.forEach((v, i) => {
+			v.setFrame(indexes[i]);
+		});
+	}
+
 	updateControl(control: Control) {
+		let iconShift = 48;
 		if (control instanceof Input.Gamepad.Gamepad) {
 			this.gpHelper = new GamepadHelper(control);
+			this.gpHelper.update();
+			const id = control.id.toLowerCase();
+			//For PS dual shock
+			iconShift = 0;
+			//Xbox
+			if (id.indexOf('xbox') !== -1 || id.indexOf('xinput') !== -1) iconShift = 16;
+			//Joycon
+			if (
+				id.indexOf('nintendo') !== -1 ||
+				id.indexOf('joycon') !== -1 ||
+				id.indexOf('switch') !== -1
+			)
+				iconShift = 32;
 		}
+		this.updateUiButtons([1 + iconShift, 2 + iconShift]);
 		this.control = control;
 
 		this.column.fillColor = !control ? this.gray : this.color;
+		this.ui.setVisible(control !== undefined);
+	}
+
+	setReady(value: boolean) {
+		const scene = MenuScene.scene;
+		if (value && scene.allReady) {
+			scene.startGame();
+		}
+		if (!(value || this.ready)) this.updateControl(undefined);
+		this.ready = value;
+
+		this.ui.setVisible(!this.ready && this.control !== undefined);
+		this.ui_ready.setVisible(this.ready);
 	}
 
 	update() {
 		if (this.control instanceof Input.Gamepad.Gamepad) {
-			//console.log((this.control.pad as any).buttons[0].pressed);
 			this.gpHelper?.update();
-			if (this.control.B) this.updateControl(undefined);
+			if (this.gpHelper?.justPressed[0]) this.setReady(true);
+			if (this.gpHelper?.justPressed[1]) this.setReady(false);
 		} else if (this.control) {
-			if (this.control.S.isDown) this.updateControl(undefined);
+			if (justDown(this.control.K)) this.setReady(true);
+			//Need to be last because control becomes null
+			if (justDown(this.control.L)) this.setReady(false);
 		}
 	}
+}
+
+function justDown(key: Input.Keyboard.Key) {
+	return Phaser.Input.Keyboard.JustDown(key);
 }
 
 class MenuScene extends Scene {
 	static scene: MenuScene;
 	static grayPlugin: any;
 	players: PlayerColumn[];
+	allReady: boolean;
 	constructor() {
 		super('MenuScene');
 		MenuScene.scene = this;
 
 		this.players = [];
+		this.allReady = false;
 	}
 
 	preload() {
 		this.load.spritesheet('player', '/assets/player1.png', {
 			frameWidth: 24,
 			frameHeight: 24,
+		});
+
+		this.load.tilemapTiledJSON('player_select_ui', '/assets/player_select_ui.json');
+		this.load.image('ui', '/assets/GUI.png');
+		this.load.spritesheet('ui-buttons', '/assets/ui-buttons.png', {
+			frameWidth: 16,
+			frameHeight: 16,
 		});
 	}
 
@@ -113,6 +201,10 @@ class MenuScene extends Scene {
 		player.updateControl(control);
 
 		return true;
+	}
+
+	startGame() {
+		this.scene.stop('MenuScene').start('GameScene');
 	}
 
 	create() {
@@ -152,21 +244,23 @@ class MenuScene extends Scene {
 				new PlayerColumn(w * ((i + 0.5) / 4), h * 0.25, new Phaser.Display.Color().random(25, 200))
 			);
 
-		const control = scene.input.keyboard.addKeys('W,A,S,D') as KeyboardControls;
+		const control = scene.input.keyboard.addKeys('W,A,S,D,I,J,K,L,Q,E') as KeyboardControls;
 
 		scene.events.on('update', () => {
+			for (const player of this.players) {
+				player.update();
+			}
+
 			for (const gamepad of this.input.gamepad.gamepads) {
 				if (gamepad.A) {
 					if (this.assignControl(gamepad)) continue;
 				}
 			}
-			if (control.W.isDown) {
+			if (justDown(control.K)) {
 				this.assignControl(control);
 			}
 
-			for (const player of this.players) {
-				player.update();
-			}
+			this.allReady = this.players.filter(v => !v.ready && v.control).length === 0;
 		});
 	}
 }

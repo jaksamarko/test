@@ -26,7 +26,7 @@ const About = () => {
 										látogass el nyitásainkra!
 									</p>
 									<a
-										href="javascript:void(0)"
+										href="/events/1"
 										className="inline-flex items-center justify-center rounded bg-primary py-4 px-6 text-base font-medium text-white transition duration-300 ease-in-out hover:bg-opacity-90 hover:shadow-lg"
 									>
 										Tudj meg többet!

@@ -1,0 +1,95 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "m1.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "": {
+            "scaleInEditor": 1
+        },
+        "m1.tmx": {
+            "scale": 1.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 234,
+                "y": 244
+            }
+        },
+        "m1.tmx#tileset": {
+            "scaleInDock": 1
+        },
+        "player_select_ui.json": {
+            "scale": 13.41875,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 32.044713553795994,
+                "y": 51.71867722403354
+            }
+        },
+        "player_select_ui.json#ui": {
+            "scaleInDock": 1
+        },
+        "player_select_ui.tmx": {
+            "scale": 5.5,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 53.45454545454545,
+                "y": 52.54545454545455
+            }
+        },
+        "player_select_ui.tmx#ui": {
+            "scaleInDock": 1
+        },
+        "test.json": {
+            "scale": 2.3583333333333334,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 228.12720848056537,
+                "y": 212.01413427561837
+            }
+        },
+        "test.json#tileset": {
+            "scaleInDock": 1
+        },
+        "ui.tmx": {
+            "scale": 8,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 55.125,
+                "y": 29
+            }
+        },
+        "ui.tmx#ui": {
+            "scaleInDock": 1
+        }
+    },
+    "last.exportedFilePath": "C:/Users/Jaksa/Dev/test/public/assets",
+    "last.imagePath": "C:/Users/Jaksa/Dev/test/public/assets",
+    "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 24,
+    "map.tileWidth": 24,
+    "openFiles": [
+        "player_select_ui.tmx",
+        "test.json",
+        "m1.tmx"
+    ],
+    "project": "ui_stuff.tiled-project",
+    "recentFiles": [
+        "player_select_ui.tmx",
+        "test.json",
+        "m1.tmx",
+        "player_select_ui.json",
+        "ui.tmx"
+    ],
+    "resizeMap.removeObjects": true,
+    "tileset.embedInMap": true,
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}
